@@ -1,0 +1,5 @@
+.env
+uploads/
+extracted_data/
+__pycache__/
+_ref.py
