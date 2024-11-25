@@ -1,0 +1,6 @@
+python-dotenv
+nltk
+together
+flask
+flask_cors
+waitress
