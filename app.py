@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, flash, redirect
 from flask_cors import CORS, cross_origin
 from waitress import serve
 from .agents import LearningAssistant
-root = os.path.dirname(__file__)
+root_dir = os.path.dirname(__file__)
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf'}
 
@@ -33,7 +33,6 @@ def hello_world():
 @cross_origin(origin='*', headers=['Access-Control-Allow-Origin' ])
 def start():
     try:
-
         if 'file' not in request.files:
             return None
         
@@ -42,7 +41,10 @@ def start():
         if file.filename == '':
             return None
         
-        file_path = os.path.join(root, app.config['UPLOAD_FOLDER'], file.filename)
+        directory = os.path.join(root_dir, app.config['UPLOAD_FOLDER'])
+        os.makedirs(directory, exist_ok=True)
+        
+        file_path = os.path.join(directory, file.filename)
 
         if file and allowed_file(file.filename):
             file.save(file_path)
@@ -59,7 +61,6 @@ def start():
 
     
 if __name__ == "__main__":
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     serve(app, host="0.0.0.0", port=5000)
 
     # app.run(debug=True, host='0.0.0.0', port=5000)
