@@ -206,7 +206,7 @@ The system uses Chroma DB to store and query the images uploaded. To update the 
 ## Troubleshooting
 
 Common issues and solutions:
-- API key errors: Ensure all API keys in the `.env` file are correct and up to date. (See `.env.init`)
+- API key errors: Ensure all API keys in the `.env` file are correct and up to date.
 - Database connection issues: Check if the Chroma DB is properly initialized and accessible.
 - Memory errors: If processing large contracts, you may need to increase the available memory for the Python process.
 - Issues related to the AI agents or RAG system: Check the `output.log` file for detailed error messages and stack traces.
