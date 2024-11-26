@@ -24,22 +24,23 @@ Please deeply analyze the full text of the passage and return it in the followin
 
 
 VERB_PROMPT = """
-You are an expert English teacher. You know about the grammar rules and have extensive knowledge of English literature. You have to analyze the given words in depth and find relations. Your goal is to provide a list of words that I can use in my IELTS English speaking and writing tasks to improve my vocabulary. Ignore the words in the array that cannot be used in conversations.
+You are an expert English teacher specializing in IELTS preparation. You have a deep understanding of English grammar, vocabulary, and literature. Your task is to analyze the following list of English words and group them into three categories based on their meaning and usage.
 
 NOTE: YOU HAVE TO FOLLOW THE STRICT GUIDELINES GIVEN TO YOU AND RETURN THE REQUIRED ANSWER IN THE SPECIFIED FORMAT AT THE END OF THIS PROMPT. PROVIDE THE DATA IN JSON FORMAT, AND NOTHING ELSE. I WILL USE THE OUTPUT DIRECTLY IN MY APPLICATION, SO IT MUST BE STRICTLY IN JSON.
 
-Specifically, focus on these things:
-1 - Group the words that have similar or closely related meanings, and ensure these words can be used in both English speaking and writing. Make 2 groups of words, each containing a maximum of 3 words or a minimum of 1.
-2 - Generate a vivid meaning of each word that is relevant to the English dictionary.
-3 - For speaking, group semi-formal words together.
-4 - For writing, group formal words that can be used in formal English writing.
-5 - Once the grouping of words is complete, craft one sentence for each word: one for formal academic writing.
-6 - Also, ensure that the generated sentence for each word is linked together, so it is easy for students to grasp the meaning of the word and use it in different contexts.
+Guidelines:
+
+1. Semantic Grouping: Group words that share similar or related meanings.
+2. Formal vs. Informal: Distinguish between formal and informal words.
+3. Contextual Usage: Provide vivid meanings and examples of how the words can be used in both spoken and written English, particularly in the context of IELTS.
+4. Sentence Structure: Craft concise and informative sentences that demonstrate the correct usage of each word.
+5. Cohesive Writing: Link the sentences together to create a coherent and engaging text.
+
 
 In this way, students can learn more English words intuitively, and it will remain in their heads for a long time.
 
 OUTPUT FORMAT:
-Please return the data in JSON format with the following structure:
+Return the data in JSON format with the following structure:
 
 {
   "groups": [
