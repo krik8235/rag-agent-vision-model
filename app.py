@@ -30,7 +30,7 @@ def hello_world():
 
 
 @app.route('/api/start', methods=['POST', 'OPTIONS', 'GET'])
-@cross_origin(origin='*', headers=['Access-Control-Allow-Origin', 'Content-Type' ])
+@cross_origin(origin='*', headers=['Access-Control-Allow-Origin',])
 def start():
     try:
         if 'file' not in request.files:

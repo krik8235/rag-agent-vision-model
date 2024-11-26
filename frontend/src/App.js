@@ -32,7 +32,8 @@ export const App = () => {
       })
       .then(res => {
         const res_obj = JSON.parse(JSON.parse(res)["text"])
-        if (res_obj !== undefined) { setOutcome(res_obj?.groups[0]?.words); setIsGenerating(false) }
+        console.log(res_obj)
+        if (res_obj !== undefined) { setOutcome(res_obj.groups[0].words); setIsGenerating(false) }
         else { setIsGenerating(false); setOutcome("Successfully processed.") }
       })
       .catch(err => { setError(true); setFile(null); setIsGenerating(false) })

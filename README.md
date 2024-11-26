@@ -19,7 +19,7 @@ The agent read the image and return the list of words, meanings, and sample usag
 
 => [Website](https://rag-agent-vision-model.vercel.app/)
 
-* Make sure to run Flask app and prep for the env file.
+* Make sure to run Flask app on your terminal and turn off the ad blocker on your browser.
 
 
 ## Table of Contents
