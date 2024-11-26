@@ -3,35 +3,40 @@ import logo from "./logo192.png"
 
 
 export const App = () => {
-  var baseUrl = window.location.hostname === "localhost" ? "http://127.0.0.1:5000" : ""
+  var baseUrl = window.location.hostname === "localhost" ? "http://127.0.0.1:5000" : "https://nlp-rag-agent-system.vercel.app"
   const [file, setFile] = useState(null)
+  const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState(false)
+  const [outcome, setOutcome] = useState(null)
 
-  const handleLearning = imageFile => {
-    setError(false); setFile(imageFile)
+  const handleLearning = async imageFile => {
+    setError(false); setFile(imageFile); setIsGenerating(true)
 
     let formData = new FormData()
     formData.append('file', imageFile)
 
-    fetch(`${baseUrl}/api/start`, {
+    await fetch(`${baseUrl}/api/start`, {
       method: "POST",
       mode: "cors",
       headers: {
         "Origin": window.location.hostname === "localhost"
           ? "http://localhost:3000"
-          : "https://rag-agent-system-chrome-extention.vercel.app",
+          : "https://nlp-rag-agent-system.vercel.app",
         "Access-Control-Request-Method": "POST, OPTIONS",
         "Access-Control-Request-Headers": "*",
       },
       body: formData
     })
       .then(res => {
-        console.log(res)
-        if (res.ok === false) { setError(true); setFile(null) }
-        // else {
-        // }
+        if (res.ok === false) { setError(true); setFile(null); setIsGenerating(false) }
+        else { return res.text() }
       })
-      .catch(err => { setError(true); setFile(null) })
+      .then(res => {
+        const res_obj = JSON.parse(JSON.parse(res)["text"])
+        if (res_obj !== undefined) { setOutcome(res_obj?.groups[0]?.words); setIsGenerating(false) }
+        else { setIsGenerating(false); setOutcome("Successfully processed.") }
+      })
+      .catch(err => { setError(true); setFile(null); setIsGenerating(false) })
   }
 
 
@@ -64,10 +69,25 @@ export const App = () => {
             <span className="file-name" style={{ width: "500px" }}>{file ? file?.name : ""}</span>
           </label>
         </div>
-        <p style={{ fontSize: "14px" }}>Format: jpg, jpeg, png, pdf, gif</p>
+        <p style={{ fontSize: "14px" }}>Format: jpg, jpeg, png</p>
+        {isGenerating && <p>...processing...</p>}
         {error && <p>Something went wrong.</p>}
-
+        {(outcome !== null && typeof outcome === String)
+          ? <p>{outcome}</p>
+          : outcome !== null && outcome.length > 0 ? outcome.map((item, i) => {
+            const { word, meaning, sample } = item
+            return (
+              <div key={i}>
+                <p>------</p>
+                <p><span style={{ fontWeight: 700 }}>Vocabulary extracted: </span>{word}</p>
+                <p><span style={{ fontWeight: 700 }}>Meaning: </span>{meaning}</p>
+                <p><span style={{ fontWeight: 700 }}>Example: </span>{sample}</p>
+              </div>
+            )
+          })
+            : <></>
+        }
       </div>
-    </div>
+    </div >
   )
 }

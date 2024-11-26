@@ -7,7 +7,7 @@ from waitress import serve
 from .agents import LearningAssistant
 root_dir = os.path.dirname(__file__)
 UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg' }
 
 load_dotenv(override=True)
 together_api_key = os.getenv("TOGETHER_API_KEY")
@@ -30,20 +30,20 @@ def hello_world():
 
 
 @app.route('/api/start', methods=['POST', 'OPTIONS', 'GET'])
-@cross_origin(origin='*', headers=['Access-Control-Allow-Origin' ])
+@cross_origin(origin='*', headers=['Access-Control-Allow-Origin', 'Content-Type' ])
 def start():
     try:
         if 'file' not in request.files:
-            return None
+            return jsonify({"error": "Image file is missing."}), 400
         
         file = request.files['file']
 
         if file.filename == '':
-            return None
+            return jsonify({"error": "Image file is missing."}), 400
         
         directory = os.path.join(root_dir, app.config['UPLOAD_FOLDER'])
         os.makedirs(directory, exist_ok=True)
-        
+
         file_path = os.path.join(directory, file.filename)
 
         if file and allowed_file(file.filename):
@@ -52,7 +52,7 @@ def start():
         assistant = LearningAssistant()
         extracted_text = assistant.start_process(file_path)
         print(extracted_text)
-        return jsonify({"text": extracted_text}), 200
+        return jsonify({ "text": extracted_text.strip().replace('\"', '"') }), 200
 
     except Exception as e:
         logging.exception(f"Error in recommendation process: {e}")

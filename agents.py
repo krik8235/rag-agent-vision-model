@@ -15,10 +15,10 @@ from Prompts.User import DEFAULT_USER_PROMPT, VERB_PROMPT, FETCH_PARAGRAPH, FETC
 
 load_dotenv(override=True)
 together_api_key = os.getenv("TOGETHER_API_KEY")
-client = Together(base_url="https://api.aimlapi.com/v1", api_key=together_api_key)
+client = Together(api_key=together_api_key)
 
 filename = sys.argv[0]
-root = os.path.dirname(__file__)
+root_dir = os.path.dirname(__file__)
 
 nltk.download("punkt")
 nltk.download("punkt_tab")
@@ -35,11 +35,11 @@ class LearningAssistant:
     self.default_prompt = DEFAULT_USER_PROMPT
 
 
-  def preprocess(self, model_res):
-    print("Start to pre-process")
+  def create_vocab_list(self, model_res) -> str:
+    print("Start to create a vocabulary list from the model output")
 
     output = ""
-    if hasattr(model_res, "choices"):
+    if model_res and hasattr(model_res, "choices"):
       output = model_res.choices[0].message.content
       output = output.lower()
 
@@ -66,14 +66,20 @@ class LearningAssistant:
         model=self.model,
         messages=[
             { "role": "system", "content": self.system_context },
-            { "role": "user", "content": [{ "type": "text",  "text": prompt + data if data else prompt}]}
+            { "role": "user", "content": [{ "type": "text",  "text": prompt if data == None else prompt + data}]}
         ],
-        temperature=1.0,
-        max_tokens=3500
+        temperature=0.7,
+        max_tokens=3000,
+        top_p=0.7,
+        top_k=50,
+        repetition_penalty=1,
+        stop=["<|eot_id|>","<|eom_id|>"],
       )
+    
     except Exception as e:
       print(f"Error: {e}")
       return None
+    
     return response
 
 
@@ -90,16 +96,20 @@ class LearningAssistant:
       response = client.chat.completions.create(
         model=self.model,
         messages=[
-          { "role": "system", "content": system_context if system_context != None else self.system_context },
+          { "role": "system", "content": self.system_context if system_context == None else system_context },
           { "role": "user", "content": [
               { "type": "text", "text": prompt },
               { "type": "image_url", "image_url": { "url": f"data:image/png;base64,{encoded_images[0]}" } }        
           ]}
         ],
-        temperature=1.0,
-        max_tokens=3500
+        temperature=0.7,
+        max_tokens=3000,
+        top_p=0.7,
+        top_k=50,
+        repetition_penalty=1,
+        stop=["<|eot_id|>","<|eom_id|>"],
       )
-      
+    
     except Exception as e:
       print(f"Error: {e}")
       return None
@@ -108,46 +118,48 @@ class LearningAssistant:
 
 
   def start_process(self, image_path):
-    output = self.preprocess(self.abstract_vocab_from_image(image_path, self.default_prompt, system_context=SYSTEM_CONTEXT_TEACHER))
-    user_prompt = VERB_PROMPT + " " + output
-    response = self.finalize_output(user_prompt)
-    response_text = response.choices[0].message.content
-    response = response_text.replace("\n", "")
-    if response:
-      output = json.loads(response)
-    return output
+    model_output =self.abstract_vocab_from_image(image_path=image_path, prompt=self.default_prompt, system_context=SYSTEM_CONTEXT_TEACHER)
+    vocab_list = self.create_vocab_list(model_output)
+    user_prompt = VERB_PROMPT + " " + vocab_list
+    response = self.finalize_output(prompt=user_prompt)
+
+    if response and hasattr(response, "choices"):
+      response_text = response.choices[0].message.content.strip().replace("\n", "").lower()
+      return response_text
+    
+    return None
   
 
   def fetch_qa_from_image(
       self,
-      passage_image_path=f"{root}/sample_textbook_images/p1.png", 
-      question_image_path=f"{root}/sample_textbook_images/q1.jpg", 
-      answer_image_path=f"{root}/sample_textbook_images/a1.jpg"
+      passage_image_path=f"{root_dir}/sample_textbook_images/p1.png", 
+      question_image_path=f"{root_dir}/sample_textbook_images/q1.jpg", 
+      answer_image_path=f"{root_dir}/sample_textbook_images/a1.jpg"
     ):
 
-    print("Start to process the reading paragraph...")
-    fetched_p = self.abstract_vocab_from_image(passage_image_path, FETCH_PARAGRAPH)
-    reading_paragraph = self.preprocess(fetched_p)
+    print("Start to process the paragraph...")
+    fetched_p = self.abstract_vocab_from_image(image_path=passage_image_path, prompt=FETCH_PARAGRAPH)
+    reading_paragraph = self.create_vocab_list(fetched_p)
     print("Paragraph: " + reading_paragraph)
     time.sleep(5)
 
     print("Start to process the questions...")
-    fetched_q = self.abstract_vocab_from_image(question_image_path, FETCH_QUESTIONS)
-    questions = self.preprocess(fetched_q)
+    fetched_q = self.abstract_vocab_from_image(image_path=question_image_path, prompt=FETCH_QUESTIONS)
+    questions = self.create_vocab_list(fetched_q)
     print("Questions " + questions)
     time.sleep(5)
 
     print("Start to process the answers...")
-    fetched_a = self.abstract_vocab_from_image(answer_image_path, FETCH_ANSWERS)
-    answers = self.preprocess(fetched_a)
+    fetched_a = self.abstract_vocab_from_image(image_path=answer_image_path, prompt=FETCH_ANSWERS)
+    answers = self.create_vocab_list(fetched_a)
     print("Correct answers: " + answers)
     time.sleep(5)
     
     data = f"Paragraph: {str(reading_paragraph)} <===> Questions: {str(questions)} <===> Answers: {str(answers)}"
-    pdb.set_trace(header="...Processing...")
+    pdb.set_trace(header="...Processing the final reult...")
    
     analysis = self.finalize_output(ANALYZE_QA, data)
-    final_output = self.preprocess(analysis)
+    final_output = self.create_vocab_list(analysis)
     print("Final outcome: " + final_output)
 
     return final_output

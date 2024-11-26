@@ -1,12 +1,17 @@
 # Overview
 
-An image-to-text agent system that retrieves, analyzes, and answers questions from the end user using NLP.
+An image-to-text agent system that retrieves, analyzes, and answers questions from the end user using NLP and Llama 3.2 11B Vision Model.
 
-<!-- [Website](https://contract-neg-system.streamlit.app/)
+[Website](https://nlp-rag-agent-system.vercel.app/)
 
-![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1731425753/portfolio/fsqjubnndrawnp9ezimq.png)
 
-![Terminal](https://res.cloudinary.com/dfeirxlea/image/upload/v1731425419/portfolio/mytqa9jtu8yexf6oc0k8.png) -->
+The agent read the image and return the list of words, meanings, and sample usages for language learners.
+
+![Feed scanned textbook](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624001/portfolio/qp1483dnf4ccq4aafvsa.jpg)
+
+![Extract key words](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623966/portfolio/albun6ibdjzanw5p5fao.png)
+
+![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624266/portfolio/m7buli7wxbdufhiprjrr.png)
 
 
 ## Table of Contents
@@ -33,19 +38,20 @@ Automate the contract review process through the following steps:
 
 1. **Image Upload**:
    - Uploads an image (jpg/png) to the system.
-   - Use NLTK's toolkit to encode the image by paragraph.
+   - Encode the image by paragraph.
 
 2. **Retrieve Key Information**:
-   - Employs Llama 3.1 (running on Together AI)
-   - Extract necessary information on reading paragraph, questions, and correct answers.
-   - Return it in string format.
+   - Employs Llama 3.2 11B Vision Model (running on Together AI) 
+      - [Llama 3.2 Vision Capabilities](https://www.llama.com/docs/how-to-guides/vision-capabilities/)
+   - Use NLTK to process the prompt
+   - Extract paragraph, questions, and correct answers in string format from the encoded image in string.
 
 3. **AI-Powered Vocabulary List**:
    -  Send the retrieved string data to the agent
-   -  Genearate vocabularies in the text and store them in the csv file
+   -  Genearate vocabulary list with meaning and a sample sentence.
 
 4. **User Interaction**:
-   - Present the vocabulary list for the user (This repository only contains a simple file uploader as an user interface.)
+   - Present the vocabulary list for the user (This repository contains a simple React app as an user interface.)
 
 
 
@@ -149,7 +155,7 @@ Automate the contract review process through the following steps:
 - Remove a package: `pipenv uninstall <package>`
 - Run a command in the virtual environment: `pipenv run <command>`
 
-* After adding/removing the package, add/delete the package on/from `requirements.txt` accordingly
+* After adding/removing the package, update `requirements.txt` accordingly or run `pip freeze > requirements.txt` to reflect the changes in dependencies.
 
 * To reinstall all the dependencies, delete `Pipfile` and `Pipfile.lock`, then run:
    ```

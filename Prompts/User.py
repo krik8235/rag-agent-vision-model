@@ -33,7 +33,7 @@ Specifically, focus on these things:
 2 - Generate a vivid meaning of each word that is relevant to the English dictionary.
 3 - For speaking, group semi-formal words together.
 4 - For writing, group formal words that can be used in formal English writing.
-5 - Once the grouping of words is complete, craft two sentences for each word: one for formal academic writing and one for semi-formal speaking.
+5 - Once the grouping of words is complete, craft one sentence for each word: one for formal academic writing.
 6 - Also, ensure that the two generated sentences for each word are linked together, so it is easy for students to grasp the meaning of the word and use it in different contexts.
 
 In this way, students can learn more English words intuitively, and it will remain in their heads for a long time.
@@ -44,13 +44,12 @@ Please return the data in JSON format with the following structure:
 {
   "groups": [
     {
-      "group_number": "<group_id>",
+      "id": "<group_id>",
       "words": [
         {
           "word": "<word>",
           "meaning": "<meaning in English literature>",
-          "formal_writing_sentence": "<formal academic sentence>",
-          "semi_formal_speaking_sentence": "<semi-formal conversational sentence>"
+          "sample": "<formal academic sentence>",
         },
         ...
       ]
@@ -65,7 +64,7 @@ ARRAY OF ENGLISH WORDS:
 
 
 FETCH_PARAGRAPH = """
-You will be provided with image containing paragraphs. Your task is as follows:
+You will be provided with image containing paragraphs. Follow the instruction below and return your output:
 
 Instructions:
 1. Extract and return all paragraphs from the image.
@@ -81,7 +80,7 @@ Output format:
 
 
 FETCH_QUESTIONS = """
-You will be provided with image containing questions. Your task is as follows:
+You will be provided with image containing questions. Follow the instruction below and return your output:
 
 1. Identify Questions:
    - Identify the instructions and ignore them.
@@ -108,7 +107,7 @@ You will be provided with image containing questions. Your task is as follows:
 
 
 FETCH_ANSWERS = """
-You will be provided with image containing solutions. Your task is as follows:
+You will be provided with image containing solutions. ollow the instruction below and return your output:
 
 1. Identify Answers:
    - Extract only the answers starting from index 1 if given, ignoring any instructions or rules provided.
