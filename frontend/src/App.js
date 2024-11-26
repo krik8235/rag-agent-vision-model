@@ -32,7 +32,6 @@ export const App = () => {
       })
       .then(res => {
         const res_obj = JSON.parse(JSON.parse(res)["text"])
-        console.log(res_obj)
         if (res_obj !== undefined) { setOutcome(res_obj.groups[0].words); setIsGenerating(false) }
         else { setIsGenerating(false); setOutcome("Successfully processed.") }
       })
@@ -71,7 +70,7 @@ export const App = () => {
         </div>
         <p style={{ fontSize: "14px" }}>Format: jpg, jpeg, png</p>
         {isGenerating && <p>...processing...</p>}
-        {error && <p>Something went wrong.</p>}
+        {error && <p>Something went wrong. Reload the page and try it again.</p>}
         {(outcome !== null && typeof outcome === String)
           ? <p>{outcome}</p>
           : outcome !== null && outcome.length > 0 ? outcome.map((item, i) => {
@@ -81,7 +80,9 @@ export const App = () => {
                 <p>------</p>
                 <p><span style={{ fontWeight: 700 }}>Vocabulary extracted: </span>{word}</p>
                 <p><span style={{ fontWeight: 700 }}>Meaning: </span>{meaning.charAt(0).toUpperCase() + meaning.slice(1)}</p>
-                <p style={{ fontStyle: "italic" }}><span style={{ fontWeight: 700 }}>Example: </span>{sample.charAt(0).toUpperCase() + sample.slice(1)}</p>
+                <p style={{ fontStyle: "italic" }}>
+                  <span style={{ fontWeight: 700 }}>Example: </span>{sample.charAt(0).toUpperCase() + sample.slice(1)}
+                </p>
               </div>
             )
           })

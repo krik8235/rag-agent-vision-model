@@ -69,7 +69,7 @@ class LearningAssistant:
             { "role": "user", "content": [{ "type": "text",  "text": prompt if data == None else prompt + data}]}
         ],
         temperature=0.7,
-        max_tokens=3000,
+        max_tokens=3500,
         top_p=0.7,
         top_k=50,
         repetition_penalty=1,
@@ -118,13 +118,12 @@ class LearningAssistant:
 
 
   def start_process(self, image_path):
-    model_output =self.abstract_vocab_from_image(image_path=image_path, prompt=self.default_prompt, system_context=SYSTEM_CONTEXT_TEACHER)
+    model_output =self.abstract_vocab_from_image(image_path, self.default_prompt, SYSTEM_CONTEXT_TEACHER)
     vocab_list = self.create_vocab_list(model_output)
     user_prompt = VERB_PROMPT + " " + vocab_list
     response = self.finalize_output(prompt=user_prompt)
-
     if response and hasattr(response, "choices"):
-      response_text = response.choices[0].message.content.strip().replace("\n", "").lower()
+      response_text = response.choices[0].message.content.strip().replace("\n", "").strip("<b>").strip("</b>").lower()
       return response_text
     
     return None

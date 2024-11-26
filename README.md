@@ -14,7 +14,7 @@ The agent read the image and return the list of words, meanings, and sample usag
 ![Terminal_2](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623966/portfolio/albun6ibdjzanw5p5fao.png)
 
 
-3. List up a few samples on UI
+3. List up a few sample words on UI
 ![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732625957/portfolio/m7buli7wxbdufhiprjrr.png)
 
 => [Website](https://rag-agent-vision-model.vercel.app/)
@@ -92,7 +92,6 @@ Automate the contract review process through the following steps:
 
 
 ## Project Structure
-
 ```
 .
 ├── __init__.py
@@ -196,6 +195,10 @@ Pre-commit hooks help maintain code quality by running checks for formatting, li
 To modify or add new AI agents, edit the `agents.py` file. Each agent is defined with a specific role, goal, and set of tools.
 
 To modify or add templated prompts, edit/add files to the `Prompts` folder.
+
+* This project employs `Chain of thought technique` as well as `Role based prompting`.
+
+-> [Prompting Guide (Meta)](https://www.llama.com/docs/how-to-guides/prompting)
 
 
 ### Modifying RAG Functionality
