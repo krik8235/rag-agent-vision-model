@@ -15,13 +15,12 @@ export const App = () => {
     let formData = new FormData()
     formData.append('file', imageFile)
 
+
     await fetch(`${baseUrl}/api/start`, {
       method: "POST",
       mode: "cors",
       headers: {
-        "Origin": window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : "https://nlp-rag-agent-system.vercel.app",
+        "Origin": window.location.origin,
         "Access-Control-Request-Method": "POST, OPTIONS",
         "Access-Control-Request-Headers": "*",
       },

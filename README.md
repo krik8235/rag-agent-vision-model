@@ -10,13 +10,14 @@ The agent read the image and return the list of words, meanings, and sample usag
 
 
 2. Extract keywords
-![Terminal](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623966/portfolio/albun6ibdjzanw5p5fao.png)
+![Terminal_1](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623968/portfolio/lcpw8idyamk7aefqyxjl.png)
+![Terminal_2](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623966/portfolio/albun6ibdjzanw5p5fao.png)
 
 
 3. List up a few samples on UI
 ![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624266/portfolio/m7buli7wxbdufhiprjrr.png)
 
-=> [Website](https://nlp-rag-agent-system.vercel.app/)
+=> [Website](https://rag-agent-vision-model.vercel.app/)
 
 * Make sure to run Flask app and prep for the env file.
 
