@@ -2,9 +2,6 @@
 
 An image-to-text agent system that retrieves, analyzes, and answers questions from the end user using NLP and Llama 3.2 11B Vision Model.
 
-[Website](https://nlp-rag-agent-system.vercel.app/)
-
-
 The agent read the image and return the list of words, meanings, and sample usages for language learners.
 
 1. Feed scanned textbook to the model:
@@ -18,6 +15,10 @@ The agent read the image and return the list of words, meanings, and sample usag
 
 3. List up a few samples on UI
 ![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624266/portfolio/m7buli7wxbdufhiprjrr.png)
+
+=> [Website](https://nlp-rag-agent-system.vercel.app/)
+
+* Make sure to run Flask app and prep for the env file.
 
 
 ## Table of Contents
