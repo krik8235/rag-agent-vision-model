@@ -3,7 +3,7 @@ import logo from "./logo192.png"
 
 
 export const App = () => {
-  var baseUrl = window.location.hostname === "localhost" ? "http://127.0.0.1:5000" : "https://nlp-rag-agent-system.vercel.app"
+  var baseUrl = "http://127.0.0.1:5000"
   const [file, setFile] = useState(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState(false)

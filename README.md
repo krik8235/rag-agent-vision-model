@@ -7,10 +7,16 @@ An image-to-text agent system that retrieves, analyzes, and answers questions fr
 
 The agent read the image and return the list of words, meanings, and sample usages for language learners.
 
-![Feed scanned textbook](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624001/portfolio/qp1483dnf4ccq4aafvsa.jpg)
+1. Feed scanned textbook to the model:
 
-![Extract key words](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623966/portfolio/albun6ibdjzanw5p5fao.png)
+![sample textbook](https://res.cloudinary.com/dfeirxlea/image/upload/t_w240_h_auto/v1732624001/portfolio/qp1483dnf4ccq4aafvsa.jpg)
 
+
+2. Extract keywords
+![Terminal](https://res.cloudinary.com/dfeirxlea/image/upload/v1732623966/portfolio/albun6ibdjzanw5p5fao.png)
+
+
+3. List up a few samples on UI
 ![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624266/portfolio/m7buli7wxbdufhiprjrr.png)
 
 
