@@ -1,8 +1,8 @@
 # Overview
 
-An image-to-text agent system that retrieves, analyzes, and answers questions from the end user using NLP and Llama 3.2 11B Vision Model.
+An image-to-text agent using NLP and Llama 3.2 11B Vision Model.
 
-The agent read the image and return the list of words, meanings, and sample usages for language learners.
+The agent as an expert English teacher will analyze the image file, extract keywords, group them semantically, and craft concise sentences demonstrating correct usage.
 
 1. Feed scanned textbook to the model:
 

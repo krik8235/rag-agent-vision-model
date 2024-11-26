@@ -58,32 +58,8 @@ class LearningAssistant:
     print("Processed result: " + vocabulary_list_string[0: 10] + "...")
 
     return vocabulary_list_string
-  
 
-  def finalize_output(self, prompt, data=None):
-    try:
-      response = client.chat.completions.create(
-        model=self.model,
-        messages=[
-            { "role": "system", "content": self.system_context },
-            { "role": "user", "content": [{ "type": "text",  "text": prompt if data == None else prompt + data}]}
-        ],
-        temperature=0.7,
-        max_tokens=3500,
-        top_p=0.7,
-        top_k=50,
-        repetition_penalty=1,
-        stop=["<|eot_id|>","<|eom_id|>"],
-      )
-    
-    except Exception as e:
-      print(f"Error: {e}")
-      return None
-    
-    return response
-
-
-  def abstract_vocab_from_image(self, image_path, prompt, system_context=None):
+  def extract_vocab_from_image(self, image_path, prompt, system_context=None):
     encoded_images = []
 
     with open(image_path, "rb") as image_file:
@@ -117,8 +93,31 @@ class LearningAssistant:
     return response
 
 
+  def finalize_output(self, prompt, data=None):
+    try:
+      response = client.chat.completions.create(
+        model=self.model,
+        messages=[
+            { "role": "system", "content": self.system_context },
+            { "role": "user", "content": [{ "type": "text",  "text": prompt if data == None else prompt + data}]}
+        ],
+        temperature=0.7,
+        max_tokens=3500,
+        top_p=0.7,
+        top_k=50,
+        repetition_penalty=1,
+        stop=["<|eot_id|>","<|eom_id|>"],
+      )
+    
+    except Exception as e:
+      print(f"Error: {e}")
+      return None
+    
+    return response
+
+
   def start_process(self, image_path):
-    model_output =self.abstract_vocab_from_image(image_path, self.default_prompt, SYSTEM_CONTEXT_TEACHER)
+    model_output =self.extract_vocab_from_image(image_path, self.default_prompt, SYSTEM_CONTEXT_TEACHER)
     vocab_list = self.create_vocab_list(model_output)
     user_prompt = VERB_PROMPT + " " + vocab_list
     response = self.finalize_output(prompt=user_prompt)
@@ -137,19 +136,19 @@ class LearningAssistant:
     ):
 
     print("Start to process the paragraph...")
-    fetched_p = self.abstract_vocab_from_image(image_path=passage_image_path, prompt=FETCH_PARAGRAPH)
+    fetched_p = self.extract_vocab_from_image(image_path=passage_image_path, prompt=FETCH_PARAGRAPH)
     reading_paragraph = self.create_vocab_list(fetched_p)
     print("Paragraph: " + reading_paragraph)
     time.sleep(5)
 
     print("Start to process the questions...")
-    fetched_q = self.abstract_vocab_from_image(image_path=question_image_path, prompt=FETCH_QUESTIONS)
+    fetched_q = self.extract_vocab_from_image(image_path=question_image_path, prompt=FETCH_QUESTIONS)
     questions = self.create_vocab_list(fetched_q)
     print("Questions " + questions)
     time.sleep(5)
 
     print("Start to process the answers...")
-    fetched_a = self.abstract_vocab_from_image(image_path=answer_image_path, prompt=FETCH_ANSWERS)
+    fetched_a = self.extract_vocab_from_image(image_path=answer_image_path, prompt=FETCH_ANSWERS)
     answers = self.create_vocab_list(fetched_a)
     print("Correct answers: " + answers)
     time.sleep(5)
