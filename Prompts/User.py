@@ -29,7 +29,7 @@ You are an expert English teacher. You know about the grammar rules and have ext
 NOTE: YOU HAVE TO FOLLOW THE STRICT GUIDELINES GIVEN TO YOU AND RETURN THE REQUIRED ANSWER IN THE SPECIFIED FORMAT AT THE END OF THIS PROMPT. PROVIDE THE DATA IN JSON FORMAT, AND NOTHING ELSE. I WILL USE THE OUTPUT DIRECTLY IN MY APPLICATION, SO IT MUST BE STRICTLY IN JSON.
 
 Specifically, focus on these things:
-1 - Group the words that have similar or closely related meanings, and ensure these words can be used in both English speaking and writing. Make 3 groups of words, each containing a maximum of 3 words or a minimum of 1.
+1 - Group the words that have similar or closely related meanings, and ensure these words can be used in both English speaking and writing. Make 2 groups of words, each containing a maximum of 3 words or a minimum of 1.
 2 - Generate a vivid meaning of each word that is relevant to the English dictionary.
 3 - For speaking, group semi-formal words together.
 4 - For writing, group formal words that can be used in formal English writing.
