@@ -15,7 +15,7 @@ The agent read the image and return the list of words, meanings, and sample usag
 
 
 3. List up a few samples on UI
-![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732624266/portfolio/m7buli7wxbdufhiprjrr.png)
+![UI](https://res.cloudinary.com/dfeirxlea/image/upload/v1732625957/portfolio/m7buli7wxbdufhiprjrr.png)
 
 => [Website](https://rag-agent-vision-model.vercel.app/)
 

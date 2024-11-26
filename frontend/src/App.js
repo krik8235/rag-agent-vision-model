@@ -79,8 +79,8 @@ export const App = () => {
               <div key={i}>
                 <p>------</p>
                 <p><span style={{ fontWeight: 700 }}>Vocabulary extracted: </span>{word}</p>
-                <p><span style={{ fontWeight: 700 }}>Meaning: </span>{meaning}</p>
-                <p><span style={{ fontWeight: 700 }}>Example: </span>{sample}</p>
+                <p><span style={{ fontWeight: 700 }}>Meaning: </span>{meaning.charAt(0).toUpperCase() + meaning.slice(1)}</p>
+                <p style={{ fontStyle: "italic" }}><span style={{ fontWeight: 700 }}>Example: </span>{sample.charAt(0).toUpperCase() + sample.slice(1)}</p>
               </div>
             )
           })
