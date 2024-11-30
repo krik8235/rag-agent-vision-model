@@ -118,9 +118,8 @@ Automate the contract review process through the following steps:
 2. Install dependencies:
    ```
    pipenv shell
-   pipenv install -r requirements.txt -v
+   pip install -r requirements.txt -v
    ```
-   * in case of error - `pip install -r requirements.txt`
 
 3. Set up environment variables:
    Create a `.env` file in the project root and add the following:
